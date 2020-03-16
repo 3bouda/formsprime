@@ -1,51 +1,58 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuestionnaireService } from './questionnaire.service';
-import { User } from './user';
-
+import { FormControl } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthUserService implements OnInit{
-user:Object
-;
+user;
 aa=true;
+a;
+bb=false;
   constructor(private router:Router, private questionnaire:QuestionnaireService) { }
-  logIn = true;
-   
+logIn = false;
   ngOnInit(){
     this.afficherUser();
-   
   }
   afficherUser(){
-    this.questionnaire.getUser().subscribe(Response=>{ 
-     this.user=Response;
+    this.questionnaire.getUser().subscribe( response =>{ 
+      this.user=response;      
     })
   }
+ 
 
-
-
-  login(t){
-    
-  
-    for(let a in this.user){  //lehne el ghalta
-      console.log(a);
-      if (t.userName == a['userName'] && t.userPassword == a['userPassword']){
+   login(t){
+     for(let y of this.user){
+  for (let x of y['data']){
+    if (t.userName == x.userName && t.userPassword == x.userPassword){
         this.aa=false;
         this.logIn = true;
-        this.router.navigateByUrl('/userQuestionnaireListe');
+        this.router.navigate(['/userQuestionnaireListe',y.id]);
       } 
     }
       if (this.aa == true){
         this.router.navigateByUrl('/login-user');      
       }
-  }
+  }}
   signup(t){
-    this.questionnaire.ajouterUser(t).subscribe(Response=>{
-      this.afficherUser();
-    });
     this.logIn = true;
-    this.router.navigateByUrl('/userQuestionnaireListe');
+   
+    for(let y of this.user){
+      this.a=y.id;
+      for(let x of y['data']){
+        if(t.useremail != x.useremail && t.userPassword != x.userPassword){
+          this.bb=true
+        }
+      }
+    }
+    this.a+=1;
+    if(this.bb == true){
+    this.questionnaire.ajouterUser(t).subscribe(response=>{
+      this.afficherUser() ;
+    });
+  }
+    this.router.navigate(['/userQuestionnaireListe',this.a]);
   }
   logOut(){
     this.logIn = false;

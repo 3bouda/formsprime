@@ -13,13 +13,14 @@ import { UserQuestionnaire } from '../userQuestionnaire';
 })
 export class UserComponent implements OnInit {
   user:object;
-  
+  identifiantUser:number;
   ques:Object;
   identifiant:number;
   constructor(public router:Router ,private questionnaire:QuestionnaireService,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
-    this.identifiant = this.activatedRoute.snapshot.params['id'];
+    this.identifiant = this.activatedRoute.snapshot.params['name'];
+    this.identifiantUser= this.activatedRoute.snapshot.params['id'];
     this.afficherUser();
 
     this.afficherQuestionnaire();
@@ -30,7 +31,7 @@ afficherQuestionnaire(){
   })
 }
 afficherUser(){
-  this.questionnaire.getUser().subscribe(Response=>{
+  this.questionnaire.getUserParId(this.identifiantUser).subscribe(Response=>{
     this.user=Response;
   })
 }
@@ -38,7 +39,7 @@ editUser(t){
   this.questionnaire.repondUser(t).subscribe(Response=>{
     this.afficherUser();
   });
-  this.router.navigate(['userQuestionnaireListe']);
+  this.router.navigate(['userQuestionnaireListe',this.identifiantUser]);
 }
 checkChange(event:Event,a:number,b:string,c:string){
   let s=<HTMLInputElement> event.target;

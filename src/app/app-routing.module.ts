@@ -23,9 +23,11 @@ const routes: Routes = [
   {path:'questionnaireliste/:id',component:AffquestionnaireComponent,canActivate: [GuardAdminGuard]},
   {path:'ajoutquestionnaire', component:QuestionnaireComponent,canActivate: [GuardAdminGuard]},
   {path:'editquestionnaire/:id',component:EditQuestionnaireComponent,canActivate: [GuardAdminGuard]},
-  {path:'userQuestionnaireListe',component:UserQuestionnareListComponent,canActivate: [GuardUserGuard]},
-  {path:'user/:id',component:UserComponent,canActivate: [GuardUserGuard]},
-  
+  {path:'userQuestionnaireListe/:id',component:UserQuestionnareListComponent,children:[
+    
+    {path:'user/:name',component:UserComponent}]
+    
+    ,canActivate: [GuardUserGuard]},
 ];
 
 @NgModule({

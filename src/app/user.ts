@@ -1,5 +1,6 @@
-import { UserQuestionnaireListe } from './userQuestionnaireListe';
+import { Fdata } from './fdata';
+import { UserquestionnaireListe } from './userquestionnaireListe';
 
 export class User{
-    constructor(public id:number,public userName:string,public useremail:string,public userPassword:string,public questionnaireListe:Array<UserQuestionnaireListe>){}
+    constructor(public id:number,public data:Array<Fdata>,public questionnaireListe:Array<UserquestionnaireListe>){}
 }

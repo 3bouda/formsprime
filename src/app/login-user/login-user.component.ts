@@ -16,8 +16,10 @@ export class LoginUserComponent implements OnInit {
       userName:['',Validators.required],
       userPassword:['',Validators.required]
     })
+    
   }
   onSubmit(u){
     this.auth.login(u);
   }
+
 }

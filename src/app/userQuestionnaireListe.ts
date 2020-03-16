@@ -1,5 +1,5 @@
 import { UserQuestionnaire } from './userQuestionnaire';
 
-export class UserQuestionnaireListe{
+export class UserquestionnaireListe{
     constructor(public questionnaire:Array<UserQuestionnaire>){}
 }

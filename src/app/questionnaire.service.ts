@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from './user';
-import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +24,13 @@ export class QuestionnaireService {
     return this._Http.put("http://localhost:3000/questionnaire/"+ questionnaire.id ,questionnaire);
   }
   getUser() {
-    return this._Http.get("http://localhost:3000/user/2");
+    return this._Http.get("http://localhost:3000/user");
+  }
+  getUserParId(id){
+    return this._Http.get("http://localhost:3000/user/"+id);
   }
   repondUser(reponse){
-    return this._Http.put("http://localhost:3000/user/2",reponse);
+    return this._Http.put("http://localhost:3000/user",reponse);
   }
   ajouterUser(user){
     return this._Http.post("http://localhost:3000/user",user);

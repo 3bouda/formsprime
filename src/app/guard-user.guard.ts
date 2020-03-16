@@ -13,7 +13,7 @@ export class GuardUserGuard implements CanActivate {
     return true;
   }
   else {
-    this.router.navigateByUrl('/login-user');
+    this.router.navigateByUrl('/signup-user');
     return false;
   }
 
